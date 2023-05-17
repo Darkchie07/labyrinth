@@ -8,9 +8,20 @@ public class PlayManager : MonoBehaviour
 {
     [SerializeField] private GameObject finishedCanvas;
     [SerializeField] private TMP_Text finishedText;
+    [SerializeField] private TMP_Text countDown;
     [SerializeField] private CustomEvent gameOverEvent;
     [SerializeField] private CustomEvent PlayerWinEvent;
+    [SerializeField] private float timer;
     private int coin = 100;
+
+    private void Update()
+    {
+        if (timer >= 0)
+        {
+            timer -= Time.deltaTime;
+            countDown.text = string.Format("{0:00}", timer);
+        }
+    }
 
     private void OnEnable()
     {
