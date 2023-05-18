@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
-using UnityEditor.Compilation;
 
 public class CountDown : MonoBehaviour
 {
     [SerializeField] private int duration;
     public UnityEvent onCountFinished = new UnityEvent();
+    public UnityEvent onFirstTime = new UnityEvent();
     public UnityEvent<int> onCount = new UnityEvent<int>();
     bool isCounting;
     private Sequence seq;
     private Coroutine countcoroutine;
+    private bool isFirstTime = true;
 
     public void StartCount()
     {
@@ -34,6 +35,11 @@ public class CountDown : MonoBehaviour
 
         isCounting = false;
         onCountFinished.Invoke();
+        if (isFirstTime)
+        {
+            isFirstTime = false;
+            onFirstTime.Invoke();
+        }
     }
     
     // public void StartCount()
